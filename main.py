@@ -93,7 +93,8 @@ class AutoSigner:
                 # sending command to the printer for printing
                 if output_path != None:
                     print('[+] Sending Command to the Printer for Printing the Signed Document [!]')
-                    os.system(f'PrintFile.exe -p1 "{p1}" -c MONOCHROME -f "{decided_output_path}"')
+                    # set default printer windows
+                    os.system(f'.\PDFtoPrinter.exe "{output_path}" "{p1}"')
 
             for filepath in folder2_files:
                     # finding name of pdf using pathlib
@@ -120,7 +121,7 @@ class AutoSigner:
                     # sending command to the printer for printing
                     if output_path != None:
                         print('[+] Sending Command to the Printer for Printing the Signed Document [!]')
-                        os.system(f'.\PrintFile.exe -p1 "{p2}" -c MONOCHROME -f "{decided_output_path}"')
+                        os.system(f'.\PDFtoPrinter.exe "{output_path}" "{p2}"')
 
     def signdocument(self,documentpath, outputpath, bbox):
         '''
@@ -264,6 +265,19 @@ class AutoSigner:
 
 
 if __name__ == '__main__':
+    print("""
+    ██████╗ ██████╗  ██████╗ ██████╗ ███████╗███████╗███████
+                 _            _
+  __ _ _   _| |_ ___  ___(_) __ _ _ __
+ / _` | | | | __/ _ \/ __| |/ _` | '_ \[built using python]
+| (_| | |_| | || (_) \__ \ | (_| | | | |
+ \__,_|\__,_|\__\___/|___/_|\__, |_| |_|
+                            |___/
+
+ Designed By: Muneeb A.     |___/ (Digital Signature) v1.0
+    """)
+    print('[+] Github: https://github.com/OttomanZ/AutoSigner_64')
+    print('[+] Contact: muneeb@muneeb.co')
     # pass folder one and folder two arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-f1', '--folder1', help='PDF Input Folder No. 1', required=True)
@@ -285,16 +299,7 @@ if __name__ == '__main__':
     cert = args.certificate
     key = args.key
     config = args.config
-    print("""
-        _         _       ____  _
-   / \  _   _| |_ ___/ ___|(_) __ _ _ __
-  / _ \| | | | __/ _ \___ \| |/ _` | '_ \
- / ___ \ |_| | || (_) |__) | | (_| | | | |
-/_/   \_\__,_|\__\___/____/|_|\__, |_| |_|
- Designed By: Muneeb A.     |___/ (Digital Signature) v1.0
-    """)
-    print('[+] Github: https://github.com/OttomanZ/AutoSigner_64')
-    print('[+] Contact: muneeb@muneeb.co')
+    
     AutoSigner(folder1, folder2, output1, output2, printer1, printer2, cert=cert, key=key, generate_new=False)
 
 
